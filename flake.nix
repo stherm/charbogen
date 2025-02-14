@@ -15,11 +15,10 @@
           buildInputs = [
             pkgs.nodejs       # Node.js für Astro
             pkgs.yarn         # Optional: yarn als Paketmanager
+            pkgs.postgresql   # PostgreSQL Server und Client-Tools (psql, pg_ctl etc.)
           ];
           shellHook = ''
-            echo "Entwicklungsumgebung für Astro ist aktiv."
-            # Falls du Astro global installieren möchtest:
-            # npm install -g astro
+            echo "Entwicklungsumgebung für Astro&PostgreSQL ist aktiv."
           '';
         };
 

@@ -1,0 +1,1 @@
+/nix/store/xwbdn2l153f3lxd4f09ilgpngbbhvvlb-postgresql-17.2/bin/postgres "-D" "." "-c" "listen_addresses=" "-c" "unix_socket_directories=/home/steffen/websites/charbogen/data"

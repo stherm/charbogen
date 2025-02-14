@@ -1,0 +1,16 @@
+2025-02-14 15:52:55.437 CET [198009] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-02-14 15:52:55.438 CET [198009] LOG:  listening on IPv6 address "::1", port 5432
+2025-02-14 15:52:55.438 CET [198009] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-02-14 15:52:55.438 CET [198009] FATAL:  could not create lock file "/run/postgresql/.s.PGSQL.5432.lock": No such file or directory
+2025-02-14 15:52:55.439 CET [198009] LOG:  database system is shut down
+2025-02-14 15:58:19.581 CET [198092] LOG:  starting PostgreSQL 17.2 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 14.2.1 20241116, 64-bit
+2025-02-14 15:58:19.581 CET [198092] LOG:  listening on Unix socket "/home/steffen/websites/charbogen/data/.s.PGSQL.5432"
+2025-02-14 15:58:19.584 CET [198095] LOG:  database system was shut down at 2025-02-14 15:52:13 CET
+2025-02-14 15:58:19.586 CET [198092] LOG:  database system is ready to accept connections
+2025-02-14 16:01:38.407 CET [198092] LOG:  received fast shutdown request
+2025-02-14 16:01:38.410 CET [198092] LOG:  aborting any active transactions
+2025-02-14 16:01:38.411 CET [198092] LOG:  background worker "logical replication launcher" (PID 198098) exited with exit code 1
+2025-02-14 16:01:38.411 CET [198093] LOG:  shutting down
+2025-02-14 16:01:38.411 CET [198093] LOG:  checkpoint starting: shutdown immediate
+2025-02-14 16:01:38.417 CET [198093] LOG:  checkpoint complete: wrote 48 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.002 s, total=0.007 s; sync files=11, longest=0.001 s, average=0.001 s; distance=290 kB, estimate=290 kB; lsn=0/1593A10, redo lsn=0/1593A10
+2025-02-14 16:01:38.420 CET [198092] LOG:  database system is shut down
