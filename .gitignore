@@ -1,0 +1,25 @@
+# Node.js Abhängigkeiten im astro-Ordner
+astro/node_modules/
+
+# Astro Build-Outputs
+astro/.astro/
+astro/dist/
+astro/build/
+
+# Logs
+astro/npm-debug.log*
+astro/yarn-debug.log*
+astro/yarn-error.log*
+
+# Betriebssystem-spezifische Dateien
+.DS_Store
+Thumbs.db
+
+# Environment Files (falls vorhanden)
+.env
+.env.local
+.env.*.local
+
+# Falls du weitere generierte Dateien oder temporäre Ordner hast,
+# kannst du diese hier ebenfalls ausschließen.
+

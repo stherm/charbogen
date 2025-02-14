@@ -1,0 +1,39 @@
+---
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const username = formData.get('username');
+  const password = formData.get('password');
+
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      // Bei erfolgreichem Login: Weiterleitung zur Menüseite
+      window.location.href = '/menu';
+    } else {
+      alert(result.message || 'Login fehlgeschlagen');
+    }
+  } catch (error) {
+    console.error('Fehler beim Login:', error);
+    alert('Ein Fehler ist aufgetreten');
+  }
+};
+---
+<form on:submit={handleSubmit} class="login-form">
+  <h2>Login</h2>
+  <label for="username">Benutzername</label>
+  <input type="text" id="username" name="username" required />
+
+  <label for="password">Passwort</label>
+  <input type="password" id="password" name="password" required />
+
+  <button type="submit">Einloggen</button>
+</form>
+
