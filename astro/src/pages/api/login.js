@@ -1,14 +1,16 @@
 import { promises as fs } from 'fs';
-import { join } from 'path';
+import { createSession } from '../../lib/sessionStore.js';
+
+// Verwende hier Node's crypto (oder eine alternative UUID-Generierung) für eine eindeutige ID
+import { randomUUID } from 'crypto';
 
 export async function POST({ request }) {
   console.log("API-Endpoint aufgerufen");
   const { username, password } = await request.json();
   console.log("Received login request for:", username);
   
-  // Relativen Pfad zur Datei usr/login ermitteln
+  // Absoluten Pfad zur Datei usr/login ermitteln (angepasst an deine Ordnerstruktur)
   const filePath = new URL('../../../../usr/login', import.meta.url).pathname;
-
   
   try {
     const data = await fs.readFile(filePath, 'utf-8');
@@ -24,9 +26,18 @@ export async function POST({ request }) {
       }
     }
     if (authenticated) {
+      // Erzeuge eine eindeutige Session-ID
+      const sessionId = randomUUID();
+      // Speichere die Session-Daten (hier nur den Benutzernamen; ggf. erweiterbar)
+      createSession(sessionId, { username });
+      
       return new Response(JSON.stringify({ success: true }), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          // Setze HttpOnly-Cookie, gültig für den gesamten Pfad, Ablauf in 3600 Sekunden (1 Stunde)
+          'Set-Cookie': `sessionId=${sessionId}; HttpOnly; Path=/; Max-Age=3600`
+        }
       });
     } else {
       return new Response(
@@ -42,4 +53,3 @@ export async function POST({ request }) {
     );
   }
 }
-

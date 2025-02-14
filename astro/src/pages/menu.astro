@@ -1,4 +1,18 @@
 ---
+import { getSession } from '../lib/sessionStore.js';
+
+// Prüfe, ob eine Session existiert
+function checkAuth() {
+  const cookieHeader = Astro.request.headers.get('cookie') || '';
+  const sessionMatch = cookieHeader.match(/sessionId=([^;]+)/);
+  if (!sessionMatch) {
+    return null;
+  }
+  const sessionId = sessionMatch[1];
+  return getSession(sessionId);
+}
+
+const session = checkAuth();
 ---
 <html lang="de">
   <head>
@@ -8,14 +22,46 @@
     <link rel="stylesheet" href="/global.css" />
   </head>
   <body>
-    <h1>Hauptmenü</h1>
-    <nav>
-      <ul>
-        <li><a href="/charakter-laden">Charakter laden</a></li>
-        <li><a href="/charakter-erstellen">Charakter erstellen</a></li>
-        <li><a href="/regelwerk">Regelwerk</a></li>
-      </ul>
-    </nav>
+    {session ? (
+      <>
+        <h1>Hauptmenü</h1>
+        <p>Willkommen, {session.username}!</p>
+        <nav>
+          <ul>
+            <li><a href="/charakter-laden">Charakter laden</a></li>
+            <li><a href="/charakter-erstellen">Charakter erstellen</a></li>
+            <li><a href="/regelwerk">Regelwerk</a></li>
+          </ul>
+        </nav>
+        <!-- Logout-Button -->
+        <button id="logout-btn">Logout</button>
+        <script client:load>
+          document.getElementById('logout-btn').addEventListener('click', async () => {
+            try {
+              const response = await fetch('/api/logout', {
+                method: 'POST'
+              });
+              const result = await response.json();
+              if (result.success) {
+                // Nach dem Logout wird zur Login-Seite weitergeleitet
+                window.location.href = '/login?message=logged_out';
+              } else {
+                alert('Logout fehlgeschlagen');
+              }
+            } catch (error) {
+              console.error('Logout-Fehler:', error);
+              alert('Ein Fehler ist aufgetreten');
+            }
+          });
+        </script>
+      </>
+    ) : (
+      <>
+        <h1>Zugriff verweigert</h1>
+        <p>Du musst dich einloggen, um diese Seite aufzurufen.</p>
+        <p><a href="/login">Zum Login</a></p>
+      </>
+    )}
   </body>
 </html>
-
+ 
