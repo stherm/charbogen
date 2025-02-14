@@ -1,13 +1,14 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
 
-export async function post({ request }) {
+export async function POST({ request }) {
   console.log("API-Endpoint aufgerufen");
   const { username, password } = await request.json();
   console.log("Received login request for:", username);
   
-  // Absoluten Pfad zur Datei usr/login ermitteln
+  // Relativen Pfad zur Datei usr/login ermitteln
   const filePath = new URL('../../../../usr/login', import.meta.url).pathname;
+
   
   try {
     const data = await fs.readFile(filePath, 'utf-8');

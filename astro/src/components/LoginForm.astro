@@ -16,6 +16,7 @@ const handleSubmit = async (event) => {
 
     if (response.ok && result.success) {
       // Bei erfolgreichem Login: Weiterleitung zur Menüseite
+      console.log("Login erfolgreich, leite weiter zu /menu");
       window.location.href = '/menu';
     } else {
       alert(result.message || 'Login fehlgeschlagen');
